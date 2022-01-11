@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="/static/jquery/jquery-3.6.0.min.js"></script>
+  <script src="/static/customs/javascript/index.js"></script>
+</head>
+<body>
+<select name="prize" id="prize_id">
+    <option value>---------</option>
+  {% for prize in prizes %}
+    <option value="{{ prize.id }}">{{ prize }}</option>
+  {% endfor %}
+</select>
+<input type="button" id="draw" value="抽獎">
+<p>獎項：<span id="prize_name"></span> 剩餘：<span id="prize_remain"></span></p>
+<p>恭喜：<span id="person"></span>中獎！</p>
+<form method="post">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="確定送出">
+  <input id="redraw" type="button" value="重抽一次">
+</form>
+<table>
+  <thead>
+    <tr>
+      <th>得獎類別</th>
+      <th>得獎內容</th>
+      <th>得獎人</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for award in awards %}
+      <tr>
+        <td>{{ award.prize.cate }}</td>
+        <td>{{ award.prize.name }}</td>
+        <td>{{ award.emp.name }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{{ emp_noaward }}
+</body>
+<script>
+
+</script>
+
+</html>
